@@ -65,8 +65,6 @@ function searchData() {
 }
 
 function barChart(data) {
-    const ctx = document.getElementById('myChart');
-    //แสดงข้อมูล total_case ของแต่ละจังหวัด
     let province = [];
     let total_case = [];
     let total_death = [];
@@ -78,6 +76,7 @@ function barChart(data) {
         }
     }
 
+    const ctx = document.getElementById('myChart');
     new Chart(ctx, {
         type: 'bar',
         data: {
@@ -126,7 +125,6 @@ function barChart(data) {
                     },
                 }
             },
-            //ทำให้สามารถ scroll ได้
             plugins: {
                 legend: {
                     labels: {
@@ -143,14 +141,6 @@ function barChart(data) {
                         size: 18
                     },
                     color: "white"
-                },
-                pan : {
-                    enabled: true,
-                    mode: 'xy'
-                },
-                zoom : {
-                    enabled: true,
-                    mode: 'xy'
                 }
             }
         }
