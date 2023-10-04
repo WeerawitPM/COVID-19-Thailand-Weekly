@@ -33,7 +33,12 @@
         </div>
     </nav>
     <div class="container mt-5 d-flex flex-column justify-content-center align-items-center w-100">
-        <!-- <div id="totalCase"></div> -->
+        <div class="overflow-x-scroll w-100 h-100">
+            <div style="width: 450vw; max-height: 80vh; min-height: 80vh;">
+                <canvas id="myChart" class="h-100 w-100"></canvas>
+            </div>
+        </div>
+        <br>
         <div class="table-responsive w-100">
             <table class="table table-dark table-hover table-bordered text-center">
                 <thead class="table-light">
@@ -54,6 +59,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

@@ -38,22 +38,7 @@ function showData() {
         `
         mainData.appendChild(tr);
     }
-
-    // แสดงจำนวนผู้ติดเชื้อรวม
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].province == "ทั้งประเทศ") {
-            let totalCase = document.getElementById("totalCase");
-            //แสดงเป็น card
-            totalCase.innerHTML = `
-            <div class="card text-white bg-danger mb-3">
-                <div class="card-header">ผู้ติดเชื้อรวม</div>
-                <div class="card-body">
-                <h5 class="card-title text-center">${data[i].total_case}</h5>
-                </div>
-            </div>
-            `
-        }
-    }
+    barChart(data);
 }
 
 function searchData() {
@@ -77,4 +62,97 @@ function searchData() {
             mainData.appendChild(tr);
         }
     }
+}
+
+function barChart(data) {
+    const ctx = document.getElementById('myChart');
+    //แสดงข้อมูล total_case ของแต่ละจังหวัด
+    let province = [];
+    let total_case = [];
+    let total_death = [];
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].province != "ทั้งประเทศ") {
+            province.push(data[i].province);
+            total_case.push(data[i].total_case);
+            total_death.push(data[i].total_death);
+        }
+    }
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: province,
+            datasets: [{
+                label: 'ติดเชื้อสะสม',
+                data: total_case,
+                backgroundColor: [
+                    'rgba(255, 159, 64, 0.2)',
+                ],
+                borderColor: [
+                    'rgb(255, 159, 64)',
+                ],
+                borderWidth: 1,
+            },
+            {
+                label: 'เสียชีวิตสะสม',
+                data: total_death,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                x: {
+                    ticks: {
+                        color: "white",
+                        font: {
+                            size: 14
+                        }
+                    },
+                },
+                y: {
+                    ticks: {
+                        color: "white",
+                        font: {
+                            size: 14
+                        }
+                    },
+                }
+            },
+            //ทำให้สามารถ scroll ได้
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16
+                        },
+                        color: "white"
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'กราฟแสดงจำนวนผู้ติดเชื้อและผู้เสียชีวิตในแต่ละจังหวัด',
+                    font: {
+                        size: 18
+                    },
+                    color: "white"
+                },
+                pan : {
+                    enabled: true,
+                    mode: 'xy'
+                },
+                zoom : {
+                    enabled: true,
+                    mode: 'xy'
+                }
+            }
+        }
+    });
 }
